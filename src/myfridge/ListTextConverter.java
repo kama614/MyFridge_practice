@@ -1,5 +1,5 @@
 package myfridge;
-// テキストファイルをList<Item>に変換する
+// List<Item>とitems.txtの相互変換を担うクラス
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -21,7 +21,11 @@ public class ListTextConverter {
 			try (var br = new BufferedReader(new InputStreamReader(is))) {
 				String line;
 				while ((line = br.readLine()) != null) {
-					System.out.println(line);
+					// テキスト一行分を賞味期限とアイテム名に分割
+					// 半角スペースを区切りとして配列に変換
+					String[] item = line.split(" ");
+					System.out.println(item[0]);
+					System.out.println(item[1]);
 				}
 
 			}
