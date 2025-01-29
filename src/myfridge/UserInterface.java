@@ -5,6 +5,12 @@ import java.util.Scanner;
 
 public class UserInterface {
 
+	private Scanner scanner;
+
+	public UserInterface() {
+		scanner = new Scanner(System.in);
+	}
+
 	// ユーザーの選択した番号に応じて、各画面を呼び出す
 	public void run() {
 
@@ -46,29 +52,69 @@ public class UserInterface {
 				sc.close();
 				loopFlag = false;
 			}
-
+			System.out.println("===================\n");
 		}
 
 	}
 
 	// アイテム一覧表示画面の生成を担うメソッド
 	private void showItems() {
-		System.out.println("アイテム一覧");
+		System.out.println("冷蔵庫の中身[賞味期限]");
+		System.out.println("----------------------");
+
+		// 仮データの出力
+		System.out.println("0：牛乳 [9/23]");
+		System.out.println("1：納豆 [9/25]");
+		System.out.println("2：もずく [9/27]");
+		System.out.println("3：たまご [9/28]");
+		System.out.println("4：チーズ [9/28]");
 	}
 
 	// 賞味期限切れ一覧画面の生成を担うメソッド
 	private void showExpiredItems() {
 		System.out.println("賞味期限切れ一覧");
+		System.out.println("----------------------");
+
+		// 仮データの出力
+		System.out.println("牛乳 [9/23]");
+		System.out.println("納豆 [9/25]");
+
 	}
 
 	// アイテム追加画面の生成を担うメソッド、アイテム名と賞味期限の入力を受け付ける
 	private void addItem() {
-		System.out.println("アイテム追加");
+		System.out.println("何を冷蔵庫に入れますか？");
+		String name = scanner.nextLine();
+
+		System.out.println("賞味期限は何日後ですか？");
+		String strDays = scanner.nextLine();
+
+		// 賞味期限の日数を整数に変換
+		int days;
+		try {
+			days = Integer.parseInt(strDays);
+		} catch (NumberFormatException e) {
+			// 例外が発生した場合、賞味期限は7日に設定
+			days = 7;
+		}
+
+		// 保存処理（テキストファイルへの書き込み）
+		System.out.println(name + "を冷蔵庫に入れました");
+		System.out.println("賞味期限を" + days + "日後に設定しました");
 	}
 
 	// アイテム削除画面の生成を担うメソッド
 	// 削除対象のアイテム番号(Listのインデックス番号)の入力を受け付ける
 	private void deleteItem() {
-		System.out.println("アイテム削除");
+		System.out.println("何番のアイテムを削除しますか？");
+		System.out.println("キャンセルの場合、適当なアルファベットを入力してください");
+		String strIndex = scanner.nextLine();
+
+		try {
+			int index = Integer.parseInt(strIndex);
+			System.out.println(index + "番のアイテムを削除しました");
+		} catch (NumberFormatException e) {
+			System.out.println("削除をキャンセルしました");
+		}
 	}
 }
