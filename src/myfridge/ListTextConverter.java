@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,15 +21,22 @@ public class ListTextConverter {
 		try {
 			InputStream is = new FileInputStream("items.txt");
 			try (var br = new BufferedReader(new InputStreamReader(is))) {
+				// 文字列の日付 ⇒ Date型への変換用
+				var sdf = new SimpleDateFormat("y年MM月dd日");
+
 				String line;
 				while ((line = br.readLine()) != null) {
 					// テキスト一行分を賞味期限とアイテム名に分割
 					// 半角スペースを区切りとして配列に変換
 					String[] item = line.split(" ");
-					System.out.println(item[0]);
+					// 文字列の日付 ⇒ Date型への変換
+					System.out.println(sdf.parse(item[0]));
 					System.out.println(item[1]);
 				}
 
+			} catch (ParseException e) {
+				e.printStackTrace();
+				System.out.println("データの読み込みに失敗しました");
 			}
 
 		} catch (IOException e) {
