@@ -2,11 +2,13 @@ package myfridge;
 // アイテムを操作するためのクラス（ItemServiceインターフェースの実装）
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ItemServiceImpl implements ItemService {
 
 	private ListTextConverter converter;
+	private Date today; // 今日の日付(賞味期限切れ確認用)
 
 	public ItemServiceImpl() {
 		converter = new ListTextConverter();
@@ -28,9 +30,9 @@ public class ItemServiceImpl implements ItemService {
 
 		// 全アイテムのList
 		List<Item> itemList = converter.read();
-		
+
 		// ①各アイテムを拡張for文で取り出し
-		for(Item item:itemList) {
+		for (Item item : itemList) {
 			// ②賞味期限切れの場合、expiredListに追加
 		}
 		return expiredList;
